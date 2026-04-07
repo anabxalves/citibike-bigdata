@@ -1,4 +1,4 @@
-# Dados grandes (não versionar)
+# Dados grandes (nï¿½o versionar)
 dados/raw_downloads/
 dados/bronze/trips/
 dados/streaming/
@@ -26,3 +26,6 @@ spark-warehouse/
 # OS
 .DS_Store
 Thumbs.db
+
+# Docker
+.docker/

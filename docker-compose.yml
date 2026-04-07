@@ -1,0 +1,34 @@
+services:
+  jupyter:
+    build: .
+    container_name: citibike-bigdata
+    ports:
+      - "8888:8888"   # Jupyter Lab
+      - "4040:4040"   # Spark UI (jobs em execução)
+      - "4041:4041"   # Spark UI (segundo job, se houver)
+    volumes:
+      # Notebooks — edite no host, rode no container
+      - ./notebooks:/home/jovyan/work/notebooks
+      # Dados — Bronze/Silver/Gold persistem no host (fora do container)
+      - ./dados:/home/jovyan/work/dados
+      # Cache dos JARs do Delta Lake — evita re-download a cada `docker compose up`
+      - ivy-cache:/home/jovyan/.ivy2
+      # Cache Maven do Spark (JARs extras)
+      - maven-cache:/home/jovyan/.m2
+    environment:
+      # Jupyter sem senha/token para uso local
+      - JUPYTER_ENABLE_LAB=yes
+      - NOTEBOOK_ARGS=--NotebookApp.token='' --NotebookApp.password=''
+      # Memória do driver Spark (ajuste conforme RAM disponível)
+      - SPARK_DRIVER_MEMORY=4g
+    # Iniciar JupyterLab na pasta de trabalho
+    command: >
+      start-notebook.sh
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+      --NotebookApp.root_dir=/home/jovyan/work
+    restart: unless-stopped
+
+volumes:
+  ivy-cache:
+  maven-cache:

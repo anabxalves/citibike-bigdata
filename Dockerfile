@@ -1,8 +1,4 @@
-# ============================================================
-# CitiBike BigData — Jupyter + PySpark + Delta Lake
-# Base: jupyter/pyspark-notebook (Spark 3.5, Java 17, Python 3.11)
-# ============================================================
-FROM jupyter/pyspark-notebook:latest
+FROM jupyter/pyspark-notebook:spark-3.5.0
 
 USER root
 RUN apt-get update --quiet && \

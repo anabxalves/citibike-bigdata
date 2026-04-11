@@ -1,4 +1,4 @@
-# Dados grandes (n�o versionar)
+# Dados grandes (nao versionar)
 dados/raw_downloads/
 dados/bronze/trips/
 dados/streaming/
@@ -29,3 +29,7 @@ Thumbs.db
 
 # Docker
 .docker/
+
+venv/
+./venv/
+/venv/

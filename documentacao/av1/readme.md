@@ -6,7 +6,7 @@ Atualmente, o sistema opera em um ambiente simulado (Local/Virtual Environment),
 
 ## Diagrama de Arquitetura
 
-O fluxo implementado nos módulos (notebooks localizados na pasta `/dados`) engloba Ingestão, Armazenamento e Transformação, mapeado da seguinte forma:
+O fluxo implementado nos módulos engloba Ingestão, Armazenamento e Transformação, mapeado da seguinte forma:
 
 ![Digrama de Arquitetura - CitiBike](./diagrama-arquitetura.png)
 

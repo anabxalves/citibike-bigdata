@@ -1,1 +1,0 @@
-Para rodar o notebook 1 no Windows é necessário baixar o arquivo hadoop.dll e winutils.exe dentro do diretorio C:\hadoop\bin

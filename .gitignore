@@ -1,9 +1,13 @@
-# Dados grandes (n�o versionar)
+# Dados grandes (nao versionar)
 dados/raw_downloads/
 dados/bronze/trips/
 dados/streaming/
-*.zip
-*.csv
+dados/spark-temp/
+dados/**/*.zip
+dados/**/*.csv
+dados/**/*.parquet
+dados/**/*.json
+dados/**/*.crc
 
 # Python
 __pycache__/
@@ -29,3 +33,7 @@ Thumbs.db
 
 # Docker
 .docker/
+
+venv/
+./venv/
+/venv/

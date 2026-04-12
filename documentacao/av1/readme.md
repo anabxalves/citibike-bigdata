@@ -8,7 +8,7 @@ Atualmente, o sistema opera em um ambiente simulado (Local/Virtual Environment),
 
 O fluxo implementado nos módulos (notebooks localizados na pasta `/dados`) engloba Ingestão, Armazenamento e Transformação, mapeado da seguinte forma:
 
-![Texto Alternativo](./diagrama-arquitetura.png)
+![Digrama de Arquitetura - CitiBike](./diagrama-arquitetura.png)
 
 #### 1. Camada de Ingestão (Data Inbound)
 Esta camada é responsável por capturar os dados do mundo exterior e trazê-los para o sistema.
@@ -54,13 +54,17 @@ O **Dashboard (4.3)** e o **Motor de ROI (4.2)** ficam lendo as tabelas refinada
 
 A stack tecnológica foi selecionada para garantir viabilidade de execução local, espelhando os padrões da indústria. Abaixo, detalhamos a tecnologia atual e como ela seria substituída em um cenário corporativo com orçamento:
 
-| Etapa do Pipeline | Tecnologia Utilizada (Projeto) | lternativa Enterprise (Cenário Real/Pago) | Justificativa da Escolha / Refinamento
+| Etapa do Pipeline | Tecnologia Utilizada (Projeto) | Alternativa Enterprise (Cenário Real/Pago) | Justificativa da Escolha / Refinamento
 | --- | --- | --- | --- |
-| Armazenamento | File System Local (.venv) | Amazon S3 ou GCP Cloud Storage | O disco local simula a latência de um bucket de Object Storage; no cenário real, o S3 traria alta disponibilidade e escalabilidade infinita.
-Orquestração | Execução manual/linear | Apache Airflow ou AWS Step Functions | Scripts Python executam a esteira, assim como o Airflow seria ideal no cenário real para gerenciar dependências, falhas e agendar as coletas (DAGs).
-Processamento Batch | PySpark Local | Databricks ou AWS EMR | O Spark local foi mantido pela padronização do código. O Databricks abstrairia a infraestrutura e forneceria clusters elásticos (auto-scaling) para lidar com picos.
-Formato de Dados | Parquet e Delta Lake | Delta Lake (Enterprise Databricks) | Preferiu-se por usar Delta Lake open-source localmente para garantir transações ACID, que é a mesma do cenário real.
-Streaming Engine | Script Python (yield JSON) | Kafka ou Amazon Kinesis | Criação de um simulador para emular a pressão da rede de bikes; no mundo real, o Kafka reteria os eventos dos totens com tolerância a falhas.
+| Armazenamento | File System Local | Amazon S3 / Amazon Redshift | O disco local simula a latência de um bucket de Object Storage. No cenário real, o S3 oferece escalabilidade infinita e desacoplamento entre armazenamento e processamento; Já o Redshift atuaria como o Data Warehouse para consultas SQL de alta performance na Gold.
+Streaming Engine | Script Python (yield JSON) | Kafka | Criação de um simulador para emular a pressão da rede de bikes. No mundo real, o Kafka real garante a persistência (retencão) e a entrega at-least-once dos eventos dos totens, mesmo em caso de falha.
+Orquestração | Execução manual/linear | Apache Airflow / AWS Step Functions | Scripts Python executam a esteira na execução simulada. No mundo real, o Airflow e o Step Funcitons substituem a intervenção humana por DAGs automatizadas que gerenciam dependências, retentativas (retries) e alertas em caso de quebra no pipeline.
+Processamento Batch | PySpark Local | Databricks | O Spark local valida a lógica de código. No mundo real, o Databricks em escala fornece auto-scaling de clusters, otimizando custos ao alocar máquinas apenas durante o processamento.
+Processamento Stream | Spark Streaming | Apache Flink | O Spark trata os dados em micro-lotes (latência de segundos). Já o Flink processa evento-por-evento, essencial para alertas de rebalanceamento que exigem milissegundos.
+Formato de Dados | Parquet e Delta Lake | Delta Lake (Enterprise Databricks) | Preferiu-se por usar Delta Lake open-source localmente para garantir transações ACID. No cenário real, o Delta permite que múltiplos processos leiam e escrevam sem corromper os dados.
+Camada de Inteligência (ML)	| Spark MLlib / Scikit-Learn |	Amazon SageMaker | O SageMaker automatiza o ciclo de vida do modelo (MLOps), permitindo que o modelo preditivo seja atualizado e monitorado automaticamente em produção.
+Análise de ROI e Custos	| Scripts Python Customizados |	AWS Step Functions |	Automatiza o cálculo financeiro de cada viagem perdida, transformando logs operacionais em métricas de negócio em tempo real para o departamento financeiro.
+Visualização Operacional	| Streamlit	| Amazon QuickSight |	O Streamlit foca em agilidade para o protótipo. Ferramentas como QuickSight oferecem maior segurança de dados e capacidade de escala para centenas de usuários corporativos.
 
 ## Arquitetura Implementada
 

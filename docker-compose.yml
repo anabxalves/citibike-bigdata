@@ -8,14 +8,8 @@ services:
       - "4041:4041"   # Spark UI (segundo job, se houver)
     volumes:
       - ./:/home/jovyan/work
-      - ivy-cache:/home/jovyan/.ivy2
-      - maven-cache:/home/jovyan/.m2
     environment:
       - JUPYTER_ENABLE_LAB=yes
       - JUPYTER_TOKEN=
-      - SPARK_DRIVER_MEMORY=4g
+      - SPARK_DRIVER_MEMORY=8g
     restart: unless-stopped
-
-volumes:
-  ivy-cache:
-  maven-cache:

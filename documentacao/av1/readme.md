@@ -135,5 +135,5 @@ A equipe foi organizada seguindo o a lógica de Pair Programming, em que cada pa
 | Etapa | Status |
 | -------- | -------- |
 | Ingestão | ✅ Finalizado |
-| Armazenamento | ⚠️ Finalizado |
+| Armazenamento | ✅  Finalizado |
 | Transformação | ✅ Finalizado |

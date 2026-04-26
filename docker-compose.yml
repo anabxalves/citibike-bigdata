@@ -13,3 +13,13 @@ services:
       - JUPYTER_TOKEN=
       - SPARK_DRIVER_MEMORY=8g
     restart: unless-stopped
+
+  streamlit:
+    build: .
+    container_name: citibike-dashboard
+    command: streamlit run /home/jovyan/work/src/dashboard.py --server.port=8501 --server.address=0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./:/home/jovyan/work
+    restart: unless-stopped

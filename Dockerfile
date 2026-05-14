@@ -19,6 +19,7 @@ RUN pip install --no-cache-dir \
     retry-requests \
     matplotlib \
     seaborn \
-    jupyterlab-git
+    jupyterlab-git \
+    mlflow
 
 WORKDIR /home/jovyan/work

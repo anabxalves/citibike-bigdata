@@ -22,6 +22,12 @@ metastore_db/
 derby.log
 spark-warehouse/
 
+# Experimentos locais (regerados pelo Notebook 06)
+dados/mlruns/
+dados/models/
+dados/gold/predictions/_delta_log/
+dados/gold/predictions/
+
 # IDE
 .vscode/
 .idea/
